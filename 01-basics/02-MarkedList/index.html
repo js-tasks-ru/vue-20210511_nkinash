@@ -12,14 +12,15 @@
 <body>
 
 <div id="app">
-  <input type="text" />
+  <input type="text" v-model="filter"/>
   <ul>
-    <li>Email</li>
-    <li class="marked">Email</li>
-    <li class="marked">Email</li>
-    <li>Email</li>
-    <li>Email</li>
-    <li>...</li>
+    <li v-for="email in emails"
+        :key="email"
+        :class="{ 'marked': isMarked(email) }"
+    >
+      {{ email }}
+    </li>
+
   </ul>
 </div>
 
