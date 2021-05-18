@@ -6,11 +6,15 @@
 </head>
 <body>
   <div id="app">
-    <input type="radio" name="radio" value="1" v-model="checked">1
-    <input type="radio" name="radio" value="2" v-model="checked">2
-    <input type="radio" name="radio" value="3" v-model="checked">3
-    <input type="radio" name="radio" value="4" v-model="checked">4
-    <input type="radio" name="radio" value="5" v-model="checked">5
+    <label v-for="val in 5"
+           :for="`radio_` + val"
+           :key="val">
+      <input type="radio" name="radio"
+             :id="`radio_` + val"
+             :value="val"
+             v-model="checked">
+      {{ val }}
+    </label>
     <hr>
     <h1>{{ title }}</h1>
   </div>
