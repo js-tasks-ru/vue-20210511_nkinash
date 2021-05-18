@@ -35,22 +35,24 @@ const app = new Vue({
   data() {
     return {
       filter: '',
-      emails: [...emails]
+      rawEmails: [...emails]
     };
   },
   computed: {
-    filteredEmails() {
-      if (this.filter === '') return [];
-      return this.emails.filter(
-        (email) =>
-          email.toLocaleLowerCase()
-            .includes(this.filter.toLowerCase())
+    emails() {
+      return this.rawEmails.map(
+        email => ({
+          text: email,
+          marked: this.marked(email)
+        })
       );
     }
   },
   methods: {
-    isMarked(email) {
-      return this.filteredEmails.indexOf(email) >= 0;
+    marked(email) {
+      return this.filter !== ''
+        ? (new RegExp(this.filter, 'i')).test(email)
+        : false
     }
   }
 });
