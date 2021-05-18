@@ -45,3 +45,62 @@ const agendaItemIcons = {
 };
 
 // Требуется создать Vue приложение
+
+const app = new Vue({
+  data() {
+    return {
+      meetupID: MEETUP_ID,
+      meetupData: null
+    }
+  },
+  computed: {
+    meetup() {
+      if (this.meetupData) {
+        let meetupData = this.meetupData;
+        return {
+          ...meetupData,
+          coverStyle: meetupData.imageId && { '--bg-url': `url(${getImageUrlByImageId(meetupData.imageId)})` },
+          localeDate: this.formatDate(meetupData.date),
+          dateOnlyString: new Date(meetupData.date).toISOString().split('T')[0],
+          agenda: this.meetupData.agenda.map((item) => ({
+            ...item,
+            icon: this.icon(item.type),
+            time: item.startsAt + ' - ' + item.endsAt,
+            title: this.getTitle(item)
+          }))
+        }
+      }
+    },
+  },
+  methods: {
+    getMeetupData() {
+      fetch(API_URL + '/meetups/' + this.meetupID)
+        .then((res) => res.json())
+        .then(res => this.meetupData = res)
+    },
+    icon(type) {
+      return `/assets/icons/icon-${agendaItemIcons[type]}.svg`;
+    },
+    getTitle(item) {
+      if (item.title) return item.title;
+      return agendaItemDefaultTitles[item.type];
+    },
+    formatDate(date) {
+      return new Date(date).toLocaleString(navigator.language, {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      });
+    },
+  },
+  watch: {
+    meetupID() {
+      this.getMeetupData()
+    }
+  },
+  mounted() {
+    this.getMeetupData();
+  }
+});
+
+app.$mount('#app');
