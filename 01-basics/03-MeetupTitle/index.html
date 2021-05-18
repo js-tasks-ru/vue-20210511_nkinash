@@ -5,9 +5,19 @@
   <title>MeetupTitle</title>
 </head>
 <body>
-
-<!-- Решение -->
-
-<script type="module" src="script.js"></script>
+  <div id="app">
+    <label v-for="val in 5"
+           :for="`radio_` + val"
+           :key="val">
+      <input type="radio" name="radio"
+             :id="`radio_` + val"
+             :value="val"
+             v-model="checked">
+      {{ val }}
+    </label>
+    <hr>
+    <h1>{{ title }}</h1>
+  </div>
+  <script type="module" src="script.js"></script>
 </body>
 </html>
