@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/assets/styles/index.css">
+  <title>MeetupInfo</title>
+</head>
+<body>
+
+<div id="app" class="page container">
+  <meetup-info :organizer="meetup.organizer" :place="meetup.place" :date="meetup.date"></meetup-info>
+</div>
+
+<script type="module">
+  import Vue from './vendor/vue.esm.browser.js';
+  import MeetupInfo from './MeetupInfo.js';
+
+  new Vue({
+    el: '#app',
+
+    components: {
+      MeetupInfo,
+    },
+
+    data() {
+      return {
+        meetup: {
+          place: 'USA, AUSTIN CONVENTION CENTER',
+          organizer: 'Evan You',
+          date: new Date(1589241600000),
+        },
+      };
+    },
+  });
+</script>
+
+</body>
+</html>
