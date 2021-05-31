@@ -13,13 +13,18 @@ const MeetupView = {
       required: true
     }
   },
+  computed: {
+    link() {
+      return this.meetup.imageId ? getImageUrlByImageId(this.meetup.imageId) : null
+    }
+  },
   components: {
     MeetupAgenda, MeetupDescription, MeetupCover, MeetupInfo
   },
   template: `
     <div>
       <!-- meetup cover -->
-      <meetup-cover :title="meetup.title" :link="meetup.imageId ? getImageUrlByImageId(meetup.imageId) : null"/>
+      <meetup-cover :title="meetup.title" :link="link"/>
       <div class="container">
         <div class="meetup">
           <div class="meetup__content">
