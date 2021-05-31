@@ -1,22 +1,35 @@
-// import { agendaItemIcons, agendaItemDefaultTitles } from './data.js';
+import { agendaItemIcons, agendaItemDefaultTitles } from './data.js';
 
 const MeetupAgendaItem = {
   name: 'MeetupAgendaItem',
-
+  props: {
+    agendaItem: {
+      type: Object,
+      required: true
+    }
+  },
+  methods: {
+    getIcon(type) {
+      return `/assets/icons/icon-${agendaItemIcons[type]}.svg`
+    },
+    getDefaultTitle(type) {
+      return agendaItemDefaultTitles[type]
+    }
+  },
   template: `
     <div class="meetup-agenda__item">
       <div class="meetup-agenda__item-col">
-        <img class="icon" alt="icon" src="/assets/icons/icon-cal-sm.svg" />
+        <img class="icon" alt="icon" :src="getIcon(agendaItem.type)" />
       </div>
-      <div class="meetup-agenda__item-col">00:00 - 00:00</div>
+      <div class="meetup-agenda__item-col">{{ agendaItem.startsAt }} - {{ agendaItem.endsAt }}</div>
       <div class="meetup-agenda__item-col">
-        <h5 class="meetup-agenda__title">Заголовок</h5>
-        <p>
-          <span>Докладчик</span>
+        <h5 class="meetup-agenda__title">{{ agendaItem.title ?? getDefaultTitle(agendaItem.type) }}</h5>
+        <p v-if="agendaItem.type === 'talk'">
+          <span>{{ agendaItem.speaker }}</span>
           <span class="meetup-agenda__dot"></span>
-          <span class="meetup-agenda__lang">ru</span>
+          <span class="meetup-agenda__lang">{{ agendaItem.language }}</span>
         </p>
-        <p>Описание</p>
+        <p>{{ agendaItem.description }}</p>
       </div>
     </div>`,
 };
