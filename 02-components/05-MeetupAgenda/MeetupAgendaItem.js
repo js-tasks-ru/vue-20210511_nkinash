@@ -29,7 +29,7 @@ const MeetupAgendaItem = {
           <span class="meetup-agenda__dot"></span>
           <span class="meetup-agenda__lang">{{ agendaItem.language }}</span>
         </p>
-        <p>{{ agendaItem.description }}</p>
+        <p v-if="agendaItem.description">{{ agendaItem.description }}</p>
       </div>
     </div>`,
 };
