@@ -13,7 +13,6 @@ const MeetupAgenda = {
   },
   template: `
     <div class="meetup-agenda">
-      <h3>Программа</h3>
       <meetup-agenda-item v-for="item in agenda" :agendaItem="item" :key="item.id"/>
     </div>`,
 };

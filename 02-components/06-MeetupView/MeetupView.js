@@ -16,31 +16,23 @@ const MeetupView = {
   components: {
     MeetupAgenda, MeetupDescription, MeetupCover, MeetupInfo
   },
-  methods: {
-    getImageUrl(id) {
-      return id ? getImageUrlByImageId(id) : null
-    },
-    getDate(date) {
-      return new Date(date)
-    }
-  },
   template: `
     <div>
       <!-- meetup cover -->
-      <meetup-cover :title="meetup.title" :link="getImageUrl(meetup.imageId)"/>
+      <meetup-cover :title="meetup.title" :link="meetup.imageId ? getImageUrlByImageId(meetup.imageId) : null"/>
       <div class="container">
         <div class="meetup">
           <div class="meetup__content">
             <!-- meetup description -->
             <h3>Описание</h3>
             <meetup-description :description="meetup.description" />
+            <h3>Программа</h3>
             <meetup-agenda :agenda="meetup.agenda"/>
           </div>
           <div class="meetup__aside">
-            <meetup-info :date="getDate(meetup.date)"
+            <meetup-info :date="new Date(meetup.date)"
                          :organizer="meetup.organizer"
-                         :place="meetup.place"
-            />
+                         :place="meetup.place"/>
           </div>
         </div>
       </div>

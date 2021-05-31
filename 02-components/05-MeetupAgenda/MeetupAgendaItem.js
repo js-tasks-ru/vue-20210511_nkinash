@@ -8,13 +8,16 @@ const MeetupAgendaItem = {
       required: true
     }
   },
+  data() {
+    return {
+      defaultTitles: agendaItemDefaultTitles,
+      itemIcons: agendaItemIcons
+    }
+  },
   methods: {
     getIcon(type) {
       return `/assets/icons/icon-${agendaItemIcons[type]}.svg`
     },
-    getDefaultTitle(type) {
-      return agendaItemDefaultTitles[type]
-    }
   },
   template: `
     <div class="meetup-agenda__item">
@@ -23,7 +26,7 @@ const MeetupAgendaItem = {
       </div>
       <div class="meetup-agenda__item-col">{{ agendaItem.startsAt }} - {{ agendaItem.endsAt }}</div>
       <div class="meetup-agenda__item-col">
-        <h5 class="meetup-agenda__title">{{ agendaItem.title ?? getDefaultTitle(agendaItem.type) }}</h5>
+        <h5 class="meetup-agenda__title">{{ agendaItem.title ?? defaultTitles[agendaItem.type] }}</h5>
         <p v-if="agendaItem.type === 'talk'">
           <span>{{ agendaItem.speaker }}</span>
           <span class="meetup-agenda__dot"></span>
