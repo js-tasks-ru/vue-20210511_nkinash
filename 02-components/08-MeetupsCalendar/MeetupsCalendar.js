@@ -11,23 +11,23 @@ function getMonthArray(date) {
       daysInCurMonth = daysInMonth(date);
 
   for (let day = 1; day <= daysInCurMonth; ++day) {
-    monthArray.push((new Date(date.getFullYear(), date.getMonth(), day, 23)));
+    monthArray.push((new Date(date.getFullYear(), date.getMonth(), day)));
   }
 
   if (monthArray[0].getDay() !== 1) {
-    let prevMonthDate = new Date(date.getFullYear(), date.getMonth() - 1, 2, 23),
+    let prevMonthDate = new Date(date.getFullYear(), date.getMonth() - 1, 1),
         prevDaysCounter = daysInMonth(prevMonthDate);
     while (monthArray[0].getDay() > 1) {
-      monthArray.unshift(new Date(prevMonthDate.getFullYear(), prevMonthDate.getMonth(), prevDaysCounter, 23));
+      monthArray.unshift(new Date(prevMonthDate.getFullYear(), prevMonthDate.getMonth(), prevDaysCounter));
       prevDaysCounter = prevDaysCounter - 1;
     }
   }
 
   if (monthArray[monthArray.length - 1].getDay() !== 0) {
-    let nextMonthDate = new Date(date.getFullYear(), date.getMonth() + 1, 2, 23),
+    let nextMonthDate = new Date(date.getFullYear(), date.getMonth() + 1, 1),
         nextDaysCounter = daysInMonth(nextMonthDate);
     while (monthArray[monthArray.length - 1].getDay() !== 0) {
-      monthArray.push(new Date(date.getFullYear(), date.getMonth(), nextDaysCounter, 23));
+      monthArray.push(new Date(date.getFullYear(), date.getMonth(), nextDaysCounter));
       nextDaysCounter++;
     }
   }
@@ -45,7 +45,7 @@ const MeetupsCalendar = {
   },
   data() {
     return {
-      date: new Date(),
+      date: null
     }
   },
   computed: {
@@ -58,14 +58,19 @@ const MeetupsCalendar = {
       }) + ' ' + this.date.getFullYear();
     }
   },
+  created() {
+    let currDate = new Date();
+    this.date = new Date(currDate.getFullYear(), currDate.getMonth(), 1)
+  },
   methods: {
     addMonth() {
       let month = this.date.getMonth() + 1;
-      window.console.log(month)
+      this.date.setDate(3)
       this.date = new Date(this.date.setMonth(month))
     },
     substrMonth() {
       let month = this.date.getMonth() - 1;
+      this.date.setDate(3)
       this.date = new Date(this.date.setMonth(month))
     },
     getMeetupsTonight(date) {
