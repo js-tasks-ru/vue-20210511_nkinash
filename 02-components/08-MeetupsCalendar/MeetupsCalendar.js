@@ -89,7 +89,7 @@ const MeetupsCalendar = {
       <div class="rangepicker__date-grid">
         <template v-for="curDay in monthArray">
           <div class="rangepicker__cell"
-               :class="{ rangepicker__cell_inactive: curDay.getMonth() === date.getMonth()}">
+               :class="{ rangepicker__cell_inactive: curDay.getMonth() !== date.getMonth()}">
             {{ curDay.getDate() }}
             <template v-if="getMeetupsTonight(curDay).length">
               <a class="rangepicker__event" v-for="meetup in getMeetupsTonight(curDay)">
