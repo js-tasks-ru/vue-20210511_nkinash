@@ -7,11 +7,9 @@
         default: 0
       }
     },
-
     model: {
       prop: 'count',
       event: 'increment',
-      default: 0
     },
     methods: {
       increment() {
